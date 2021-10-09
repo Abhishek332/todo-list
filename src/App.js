@@ -1,25 +1,50 @@
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
+import Todolist from './Todolist';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const App = ()=>{
+    const [tasktaker, setTasktaker] = useState("");
+    const [tasks, setTasks] = useState([]);
+
+    const addTask = (newTask)=>{
+        setTasks(
+            (oldTask)=> [...oldTask,tasktaker]
+            )
+        setTasktaker('');
+    }
+
+    const delTask = (id)=>{
+        console.log(id);
+        setTasks((oldTask)=>{
+            return oldTask.filter((arr, index)=>{
+                return index !== id;
+            })
+        });
+    }
+
+    return (
+        <>
+            <div className="main_div">
+                <div className="center_div">
+                    <div className="top">
+                        <h1>Todo List</h1>
+                    </div>
+                    <div className="input-wrapper">
+                    <input type="text" placeholder="Add a Item" value={tasktaker} onChange={(e)=>setTasktaker(e.target.value)}/>
+                    <button className="circle" onClick={()=>addTask(tasktaker)}>+</button>
+                    </div>
+
+                    <ul>
+                        {
+                            tasks.map((taskval, index)=>{
+                                return <Todolist key={index} id={index} value={taskval} onSubmit={delTask}/>
+                            })
+                        }
+                    </ul>
+                </div>
+            </div>
+        </>
+    )
 }
 
 export default App;
