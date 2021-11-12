@@ -1,4 +1,5 @@
 import './App.css';
+import MenuIcon from '@mui/icons-material/Menu';
 
 const Todolist = (props)=>{
     const {value, id, onSubmit} = props;
@@ -6,7 +7,8 @@ const Todolist = (props)=>{
     return <>
         <div style={{display : "flex"}}>
             <li>{value}</li>
-            <button onClick={()=>onSubmit(id)}>-</button>
+            <MenuIcon/>
+            {/* <DeleteForeverIcon onClick={()=>onSubmit(id)}/> */}
         </div>
         </>
 }
